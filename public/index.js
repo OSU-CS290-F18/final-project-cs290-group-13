@@ -1,4 +1,6 @@
 /* Not done!! Search bar action -> search the post name in projects, and remover others*/
+
+/*
 function text_search(text, searched)
 {
 	var check = null;
@@ -22,6 +24,7 @@ function text_search(text, searched)
 		}
 	}
 }
+*/
 /* Show modal */
 function showModal() {
 
@@ -31,6 +34,41 @@ function showModal() {
     modal.classList.remove('hidden');
     modalBackdrop.classList.remove('hidden');
   
+}
+function showPost() {
+
+    var modal = document.getElementById('posts');
+    var modalBackdrop = document.getElementById('posts-backdrop');
+  
+    /* Not Done Yet, Not work in assignment2 and assignment3 */
+
+    var postplusbutton = document.getElementById('expand-post');
+    var postminusbutton = document.getElementById('close-post');
+    modal.classList.remove('hidden');
+    modalBackdrop.classList.remove('hidden');
+
+
+    postplusbutton.classList.add('hidden');
+    postminusbutton.classList.remove('hidden');
+
+  
+}
+
+function hidePost() {
+
+    var modal = document.getElementById('posts');
+    var modalBackdrop = document.getElementById('posts-backdrop');
+  
+    /* Not Done Yet, Use class name to sepately work */
+    var postplusbutton = document.getElementById('expand-post');
+    var postminusbutton = document.getElementById('close-post');
+  
+    modal.classList.add('hidden');
+    modalBackdrop.classList.add('hidden');
+    postplusbutton.classList.remove('hidden');
+    postminusbutton.classList.add('hidden');
+  
+ /*   clearModalInputs();*/
 }
 /*Not done!! Clear modal */
 function clearModalInputs() {
@@ -53,14 +91,21 @@ function hideModal() {
     modal.classList.add('hidden');
     modalBackdrop.classList.add('hidden');
   
-    clearModalInputs();
+ /*   clearModalInputs();*/
 }
 
 window.addEventListener('DOMContentLoaded', function () {
 
     var addPostButton = document.getElementById('add-new-post');
     addPostButton.addEventListener('click', showModal);
-  
+
+    var showPostButton = document.getElementById('expand-post');
+    showPostButton.addEventListener('click', showPost);
+
+    var postHideButton = document.getElementsById('close-post');
+    postHideButton.addEventListener('click', hidePost);
+ 
+    /* 
     var modalAcceptButton = document.getElementById('modal-accept');
     modalAcceptButton.addEventListener('click', handleModalAcceptClick);
   
@@ -68,6 +113,8 @@ window.addEventListener('DOMContentLoaded', function () {
     for (var i = 0; i < modalHideButtons.length; i++) {
       modalHideButtons[i].addEventListener('click', hideModal);
     }
+
+    */
 });
 
 /* Create Action */

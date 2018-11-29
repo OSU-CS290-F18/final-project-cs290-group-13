@@ -16,7 +16,7 @@ a {
 }
 
 .hidden {
-    display: none;
+   display: none;
 }
 
 a:hover {
@@ -127,7 +127,7 @@ span.post {
   /* need to display when user click the plush button*/
 #close-post {
       float: right;
-      display: none;
+      /*display: none;*/
 }
 #add-new-post {
     position: fixed;
