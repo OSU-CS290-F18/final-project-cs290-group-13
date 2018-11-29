@@ -35,41 +35,74 @@ function showModal() {
     modalBackdrop.classList.remove('hidden');
   
 }
-function showPost() {
+function showPost(i) {
+    var count = i;
+    var count2 = i+10;
 
-    var modal = document.getElementById('posts');
-    var modalBackdrop = document.getElementById('posts-backdrop');
-  
-    /* Not Done Yet, Not work in assignment2 and assignment3 */
 
-    var postplusbutton = document.getElementById('expand-post');
-    var postminusbutton = document.getElementById('close-post');
-    modal.classList.remove('hidden');
-    modalBackdrop.classList.remove('hidden');
+    var postplusbutton = document.getElementById(count);
+    var postminusbutton = document.getElementById(count2);
 
+    
+    var modal = document.getElementsByClassName('posts');
+    for(var j = 0 ; j < modal.length; j++)
+    {
+        if(j == i)
+        {
+            modal[j].classList.remove('hidden');
+        }
+    }
+
+    var modalBackdrop = document.getElementsByClassName('posts-backdrop');
+    for(var j = 0 ; j < modalBackdrop.length ; j++)
+    {
+        if(j == i)
+        {
+            modalBackdrop[j].classList.remove('hidden');
+        }
+    }
 
     postplusbutton.classList.add('hidden');
+  
     postminusbutton.classList.remove('hidden');
 
   
 }
 
-function hidePost() {
+function hidePost(i) {
+    var count = i-10;
+    var count2 = i;
 
-    var modal = document.getElementById('posts');
-    var modalBackdrop = document.getElementById('posts-backdrop');
-  
-    /* Not Done Yet, Use class name to sepately work */
-    var postplusbutton = document.getElementById('expand-post');
-    var postminusbutton = document.getElementById('close-post');
-  
-    modal.classList.add('hidden');
-    modalBackdrop.classList.add('hidden');
+
+    var postplusbutton = document.getElementById(count);
+    var postminusbutton = document.getElementById(count2);
+
+    
+    var modal = document.getElementsByClassName('posts');
+    for(var j = 0 ; j < modal.length; j++)
+    {
+        if(j == i-10)
+        {
+            modal[j].classList.add('hidden');
+        }
+    }
+
+    var modalBackdrop = document.getElementsByClassName('posts-backdrop');
+    for(var j = 0 ; j < modalBackdrop.length ; j++)
+    {
+        if(j == i-10)
+        {
+            modalBackdrop[j].classList.add('hidden');
+        }
+    }
+
     postplusbutton.classList.remove('hidden');
-    postminusbutton.classList.add('hidden');
   
- /*   clearModalInputs();*/
+    postminusbutton.classList.add('hidden');
+
+  
 }
+
 /*Not done!! Clear modal */
 function clearModalInputs() {
 
@@ -99,22 +132,40 @@ window.addEventListener('DOMContentLoaded', function () {
     var addPostButton = document.getElementById('add-new-post');
     addPostButton.addEventListener('click', showModal);
 
-    var showPostButton = document.getElementById('expand-post');
-    showPostButton.addEventListener('click', showPost);
-
-    var postHideButton = document.getElementsById('close-post');
-    postHideButton.addEventListener('click', hidePost);
+    var showPostButton = document.getElementsByClassName('post-expand-button');
+    
  
-    /* 
+    for(var i = 0 ; i < showPostButton.length ; i++)
+    {
+        showPostButton[i].addEventListener('click', function()
+        {
+            var id = parseInt(this.id);
+            console.log("123== New words were entered: " + id);
+            showPost(id);
+        });
+    }
+   
+    var postHideButton = document.getElementsByClassName('post-close-button');
+    for(var i = 0 ; i < postHideButton.length ; i++)
+    {
+        postHideButton[i].addEventListener('click', function()
+        {
+            var id = parseInt(this.id);
+            console.log("== New words were entered: " + id);
+            hidePost(id)
+        });
+    }
+ 
+    /*
     var modalAcceptButton = document.getElementById('modal-accept');
     modalAcceptButton.addEventListener('click', handleModalAcceptClick);
-  
+  */
+
     var modalHideButtons = document.getElementsByClassName('modal-hide-button');
     for (var i = 0; i < modalHideButtons.length; i++) {
       modalHideButtons[i].addEventListener('click', hideModal);
     }
 
-    */
 });
 
 /* Create Action */

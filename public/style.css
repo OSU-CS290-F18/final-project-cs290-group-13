@@ -15,6 +15,7 @@ a {
     color: #03a9f4;
 }
 
+
 .hidden {
    display: none;
 }
@@ -120,12 +121,12 @@ span.post {
     margin-bottom: 10px;
 }
 
-#expand-post {
+.post-expand-button {
     float: right;
     margin: 0px;
 }
   /* need to display when user click the plush button*/
-#close-post {
+.post-close-button {
       float: right;
       /*display: none;*/
 }
