@@ -3,6 +3,8 @@ var express = require('express');
 var exphbs = require('express-handlebars');
 var app = express();
 
+var projectData = require("./projectData")
+
 var port = process.env.PORT || 3000;
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
@@ -17,7 +19,10 @@ app.get('/profile', function (req, res, next) {
 
 
 app.get('/', function (req, res, next) {
-  res.status(200).render('homePage');
+  var context = {
+      "projects": projectData
+  }
+  res.status(200).render('homePage', context);
 });
 
 

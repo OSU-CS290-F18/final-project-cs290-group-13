@@ -1,0 +1,72 @@
+[
+  
+	{
+    
+		"title": "CS_290 Assignment_1",
+		"posts": [
+			{
+				"title": "README.md",
+				"link": "A1/README.md",
+				"imgURL": "./codes/README.md"
+			},
+			{
+				"title": "index.html",
+				"link": "A1/index.html",
+				"imgURL": "./codes/index.html"
+			},
+			{
+				"title": "blog.html",
+				"link": "A1/index.html",
+				"imgURL": "./codes/blog.html"
+			}
+		],
+		"button": 0,
+		"button10": 10  
+	},
+	{
+    
+		"title": "CS_290 Assignment_2",
+		"posts": [
+			{
+				"title": "README.md",
+				"link": "A2/README.md",
+				"imgURL": "./codes/README.md"
+			},
+			{
+				"title": "index.html",
+				"link": "A2/index.html",
+				"imgURL": "./codes/index.html"
+			},
+			{
+				"title": "style.css",
+				"link": "A2/style.css",
+				"imgURL": "./codes/style.css"
+			}
+		],
+		"button": 1,
+		"button10": 11  
+	},
+	{
+    
+		"title": "CS_290 Assignment_3",
+		"posts": [
+			{
+				"title": "README.md",
+				"link": "A3/README.md",
+				"imgURL": "./codes/README.md"
+			},
+			{
+				"title": "index.html",
+				"link": "A3/index.html",
+				"imgURL": "./codes/index.html"
+			},
+			{
+				"title": "style.css",
+				"link": "A3/style.css",
+				"imgURL": "./codes/style.css"
+			}
+		],
+		"button": 2,
+		"button10": 12  
+	}
+]

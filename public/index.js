@@ -30,10 +30,10 @@ function showModal() {
 
     var modal = document.getElementById('new-post-modal');
     var modalBackdrop = document.getElementById('modal-backdrop');
-  
+
     modal.classList.remove('hidden');
     modalBackdrop.classList.remove('hidden');
-  
+
 }
 function showPost(i) {
     var count = i;
@@ -43,7 +43,7 @@ function showPost(i) {
     var postplusbutton = document.getElementById(count);
     var postminusbutton = document.getElementById(count2);
 
-    
+
     var modal = document.getElementsByClassName('posts');
     for(var j = 0 ; j < modal.length; j++)
     {
@@ -63,10 +63,72 @@ function showPost(i) {
     }
 
     postplusbutton.classList.add('hidden');
-  
+
     postminusbutton.classList.remove('hidden');
 
-  
+
+}
+
+function newProject(description, photoURL, price, city, condition) {
+    var context = {
+        "price": price,
+        "city": city,
+        "condition": condition,
+        "description": description,
+        "photoURL": photoURL
+    }
+    var post = Handlebars.templates.itemPost(context);
+
+    /*
+     * Add the new post element into the DOM at the end of the posts <section>.
+     */
+    var postsSection = document.getElementById('posts');
+    postsSection.insertAdjacentHTML("beforeend", post);
+
+}
+function newPost(project, codeName, code) {
+    var context = {
+        "price": price,
+        "city": city,
+        "condition": condition,
+        "description": description,
+        "photoURL": photoURL
+    }
+    var post = Handlebars.templates.itemPost(context);
+
+    /*
+     * Add the new post element into the DOM at the end of the posts <section>.
+     */
+    var postsSection = document.getElementById('posts');
+    postsSection.insertAdjacentHTML("beforeend", post);
+
+}
+
+/* Handling adding a post */
+function handleModalAcceptClick() {
+    var project = document.getElementById('create-project').value.trim();
+    var codeName = document.getElementById('create-codename').value.trim();
+    var code = document.getElementById('create-code').value.trim();
+
+    if (!project || !codeName || !code) {
+        alert("You must fill in all of the fields!");
+    } else {
+
+      if (project === "Type new project name") {
+          newPost(project, codeName, code)
+      } else {
+          /*Create new project (Actually get name)*/
+          newPost(project, codeName, code)
+      }
+      allPosts.push({
+          description: description,
+          photoURL: photoURL,
+          price: price,
+          city: city,
+          condition: condition
+      });
+
+      hideModal()
 }
 
 function hidePost(i) {
@@ -77,7 +139,7 @@ function hidePost(i) {
     var postplusbutton = document.getElementById(count);
     var postminusbutton = document.getElementById(count2);
 
-    
+
     var modal = document.getElementsByClassName('posts');
     for(var j = 0 ; j < modal.length; j++)
     {
@@ -97,10 +159,10 @@ function hidePost(i) {
     }
 
     postplusbutton.classList.remove('hidden');
-  
+
     postminusbutton.classList.add('hidden');
 
-  
+
 }
 
 /*Not done!! Clear modal */
@@ -111,7 +173,7 @@ function clearModalInputs() {
       modalInputElements[i].value = '';
     }
     modalInputElements[0] = "Type new project name"
-  
+
 }
 
 
@@ -120,10 +182,10 @@ function hideModal() {
 
     var modal = document.getElementById('new-post-modal');
     var modalBackdrop = document.getElementById('modal-backdrop');
-  
+
     modal.classList.add('hidden');
     modalBackdrop.classList.add('hidden');
-  
+
  /*   clearModalInputs();*/
 }
 
@@ -133,8 +195,7 @@ window.addEventListener('DOMContentLoaded', function () {
     addPostButton.addEventListener('click', showModal);
 
     var showPostButton = document.getElementsByClassName('post-expand-button');
-    
- 
+
     for(var i = 0 ; i < showPostButton.length ; i++)
     {
         showPostButton[i].addEventListener('click', function()
@@ -144,7 +205,7 @@ window.addEventListener('DOMContentLoaded', function () {
             showPost(id);
         });
     }
-   
+
     var postHideButton = document.getElementsByClassName('post-close-button');
     for(var i = 0 ; i < postHideButton.length ; i++)
     {
@@ -155,11 +216,9 @@ window.addEventListener('DOMContentLoaded', function () {
             hidePost(id)
         });
     }
- 
-    /*
+
     var modalAcceptButton = document.getElementById('modal-accept');
     modalAcceptButton.addEventListener('click', handleModalAcceptClick);
-  */
 
     var modalHideButtons = document.getElementsByClassName('modal-hide-button');
     for (var i = 0; i < modalHideButtons.length; i++) {
@@ -169,4 +228,3 @@ window.addEventListener('DOMContentLoaded', function () {
 });
 
 /* Create Action */
-

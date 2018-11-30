@@ -1,0 +1,33 @@
+<div class="project-card">
+        
+	<div class="project-header">
+            
+		<a>{{title}}</a>
+            
+		<button type="button" id="{{button}}" class="post-expand-button">
+			<i class="fa fa-plus"></i>
+		</button>
+            
+		<button type="button" id="{{button10}}" class="hidden post-close-button">
+			<i class="fa fa-minus"></i>
+		</button>
+        
+	</div>
+
+
+             
+	<div id="posts-backdrop" class = "posts-backdrop" class="hidden"></div>
+        
+	<div id="posts" class="hidden posts">
+            
+		<div class="posts-dialog">
+
+  
+			{{#each posts}}     
+				{{> post}}
+			{{/each}}     
+		</div>
+        
+	</div>
+    
+</div>
