@@ -235,3 +235,10 @@ span.post {
     font-size: 24px;
     margin-top: 0;
 }
+.post.profile
+{
+  max-height: 100px;
+}
+.post-header.profile{
+    max-height: 50px;
+}

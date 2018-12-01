@@ -105,6 +105,8 @@ function newPost(project, codeName, code) {
 }
 
 /* Handling adding a post */
+
+/*
 function handleModalAcceptClick() {
     var project = document.getElementById('create-project').value.trim();
     var codeName = document.getElementById('create-codename').value.trim();
@@ -117,7 +119,9 @@ function handleModalAcceptClick() {
       if (project === "Type new project name") {
           newPost(project, codeName, code)
       } else {
+          */
           /*Create new project (Actually get name)*/
+/*
           newPost(project, codeName, code)
       }
       allPosts.push({
@@ -130,6 +134,7 @@ function handleModalAcceptClick() {
 
       hideModal()
 }
+*/
 
 function hidePost(i) {
     var count = i-10;
@@ -216,7 +221,7 @@ window.addEventListener('DOMContentLoaded', function () {
             hidePost(id)
         });
     }
-
+/*
     var modalAcceptButton = document.getElementById('modal-accept');
     modalAcceptButton.addEventListener('click', handleModalAcceptClick);
 
@@ -224,7 +229,7 @@ window.addEventListener('DOMContentLoaded', function () {
     for (var i = 0; i < modalHideButtons.length; i++) {
       modalHideButtons[i].addEventListener('click', hideModal);
     }
-
+*/
 });
 
 /* Create Action */
