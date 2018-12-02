@@ -1,7 +1,7 @@
-/* Not done!! Search bar action -> search the post name in projects, and remover others*/
 
+/*------------------------------------------------------------------- */
 /*
-function text_search(text, searched)
+function text_search(post, searched)
 {
 	var check = null;
 	if(text.trim() != "")
@@ -25,6 +25,114 @@ function text_search(text, searched)
 	}
 }
 */
+
+function doFilterUpdate() {
+
+    /*
+     * Grab values of filters from user inputs.
+     */
+    
+    var filters = {
+      text: document.getElementById('search-text-input').value.trim(),
+    }
+
+
+    var projectElems = document.getElementsByClassName('project-card');
+    for (var i = 0; i < projectElems.length; i++) {
+      var postElems = projectElems[i].getElementsByClassName('post');
+      for(var j = 0 ; j <postElems.length ; j++)
+      {
+        if(postPassesFilters(postElems[j], filters))
+        {
+            console.log("Success");
+            postElems[j].style.display = "";
+            //postElems[j].classList.remove('hidden');
+        }
+        else {
+            postElems[j].style.display = "none";
+            console.log("Failure");
+            //postElems[j].classList.add('hidden');
+        }
+      }
+      
+      /*
+      for(var j = 0; j < postElems.length ; j++)
+      {
+          console.log("Test: " + postElems[j].length);
+        if(postPassesFilters(postElems[j], filters))
+        {
+            postElems[j].classList.remove('hidden');
+        }
+        else {
+            postElems[j].classList.add('hidden');
+        }
+      }
+      */
+    }
+/*
+    var postElems = document.getElementsByClassName('project-card');
+    for (var i = 0; i < postElems.length; i++) {
+        var 
+        for(var j=0 ; j < )
+        allPosts.push(parsePostElem(postElems[i]));
+    }
+
+
+
+
+    allPosts.forEach(function (post) {
+        if (postPassesFilters(post, filters)) {
+          post.classList.remove('hidden');
+        }
+        else{
+            post.classList.add('hidden');
+        }
+    });
+*/
+}
+function postPassesFilters(post, filters) {
+    if (filters.text) {
+        var postheader2 = post.getElementsByClassName("post-header")[0].querySelector('a').innerHTML.toLowerCase();
+        console.log("Post header Test:", postheader2);
+/*
+            var postname = document.getElementsByClassName('post-header');
+
+        for(var i = 0 ; i < post.length ; i++)
+        {
+            
+            var postheader = post[i].getElementsByClassName("post-header")[0].innerHTML;
+            console.log("Post header Test:", postheader);
+            var postheader2 = post[i].getElementsByClassName("post-header")[0].querySelector('a').innerHTML.toLowerCase();
+            console.log("Post header Test:", postheader2);
+            
+        }
+  */    
+        var filterText = filters.text.toLowerCase();
+        console.log("FILTER TITLE:" + filterText);
+        if (postheader2.indexOf(filterText) === -1) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
+/*it will be in addeventlistenr */
+/*
+var projectElems = document.getElementsByClassName('project-card');
+  for (var i = 0; i < projectElems.length; i++) {
+    var postElems = projectElems.getElementsByClassName('posts-dialog');
+    for(var j = 0; j < postElems.length ; j++)
+    {
+
+    }
+    allPosts.push(parsePostElem(postElems[i]));
+  }
+*/
+
+
+
+/*------------------------------------------------------------------- */
 /* Show modal */
 function showModal() {
 
@@ -195,6 +303,27 @@ function hideModal() {
 }
 
 window.addEventListener('DOMContentLoaded', function () {
+/*
+    var projectElems = document.getElementsByClassName('project-card');
+    for (var i = 0; i < projectElems.length; i++) {
+      var postElems = projectElems.getElementsByClassName('posts-dialog');
+      for(var j = 0; j < postElems.length ; j++)
+      {
+        allPosts.push(parsePostElem(postElems[j]));
+      }
+    }
+
+    var postElems = document.getElementsByClassName('project-card');
+    for (var i = 0; i < postElems.length; i++) {
+        var 
+        for(var j=0 ; j < )
+        allPosts.push(parsePostElem(postElems[i]));
+    }
+
+*/
+
+
+
 
     var addPostButton = document.getElementById('add-new-post');
     addPostButton.addEventListener('click', showModal);
@@ -224,12 +353,17 @@ window.addEventListener('DOMContentLoaded', function () {
 /*
     var modalAcceptButton = document.getElementById('modal-accept');
     modalAcceptButton.addEventListener('click', handleModalAcceptClick);
-
+*/
     var modalHideButtons = document.getElementsByClassName('modal-hide-button');
     for (var i = 0; i < modalHideButtons.length; i++) {
       modalHideButtons[i].addEventListener('click', hideModal);
     }
-*/
+
+    
+    var searchButton = document.getElementById('search-button');
+    
+    searchButton.addEventListener('click', doFilterUpdate);
+    
 });
 
 /* Create Action */

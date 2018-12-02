@@ -64,6 +64,11 @@
 				"title": "style.css",
 				"link": "A3/style.css",
 				"imgURL": "./codes/style.css"
+			},
+			{
+				"title": "index.js",
+				"link": "A3/index.js",
+				"imgURL": "./codes/index.js"
 			}
 		],
 		"button": 2,
