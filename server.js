@@ -3,7 +3,8 @@ var express = require('express');
 var exphbs = require('express-handlebars');
 var app = express();
 
-var projectData = require("./projectData")
+var projectData = require("./projectData");
+var postData = require("./postData");
 
 var port = process.env.PORT || 3000;
 
@@ -25,6 +26,15 @@ app.get('/', function (req, res, next) {
   res.status(200).render('homePage', context);
 });
 
+app.get('/:post', function(req, res, next){
+  var post = req.params.post.toLowerCase();
+  if(postData[post]){
+    res.render('postPage', postData[post]);
+  }
+  else{
+    next();
+  }
+});
 
 app.get("*", function (req, res, next) {
   res.status(404).render('404');
