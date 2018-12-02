@@ -222,6 +222,22 @@ span.post {
     position: relative;
     left: 80px;
 }
+.create-input
+{
+    width: 300px;
+    height: 30px;
+}
+#create-codename
+{
+    width: 300px;
+    height: 20px;
+}
+#create-code
+{
+    width: 300px;
+    height: 20px;
+}
+
 .modal-footer {
   position: absolute;
   bottom: 4px;
