@@ -1,7 +1,7 @@
+/* Not done!! Search bar action -> search the post name in projects, and remover others*/
 
-/*------------------------------------------------------------------- */
 /*
-function text_search(post, searched)
+function text_search(text, searched)
 {
 	var check = null;
 	if(text.trim() != "")
@@ -25,117 +25,8 @@ function text_search(post, searched)
 	}
 }
 */
-
-function doFilterUpdate() {
-
-    /*
-     * Grab values of filters from user inputs.
-     */
-    
-    var filters = {
-      text: document.getElementById('search-text-input').value.trim(),
-    }
-
-
-    var projectElems = document.getElementsByClassName('project-card');
-    for (var i = 0; i < projectElems.length; i++) {
-      var postElems = projectElems[i].getElementsByClassName('post');
-      for(var j = 0 ; j <postElems.length ; j++)
-      {
-        if(postPassesFilters(postElems[j], filters))
-        {
-            console.log("Success");
-            postElems[j].style.display = "";
-            //postElems[j].classList.remove('hidden');
-        }
-        else {
-            postElems[j].style.display = "none";
-            console.log("Failure");
-            //postElems[j].classList.add('hidden');
-        }
-      }
-      
-      /*
-      for(var j = 0; j < postElems.length ; j++)
-      {
-          console.log("Test: " + postElems[j].length);
-        if(postPassesFilters(postElems[j], filters))
-        {
-            postElems[j].classList.remove('hidden');
-        }
-        else {
-            postElems[j].classList.add('hidden');
-        }
-      }
-      */
-    }
-/*
-    var postElems = document.getElementsByClassName('project-card');
-    for (var i = 0; i < postElems.length; i++) {
-        var 
-        for(var j=0 ; j < )
-        allPosts.push(parsePostElem(postElems[i]));
-    }
-
-
-
-
-    allPosts.forEach(function (post) {
-        if (postPassesFilters(post, filters)) {
-          post.classList.remove('hidden');
-        }
-        else{
-            post.classList.add('hidden');
-        }
-    });
-*/
-}
-function postPassesFilters(post, filters) {
-    if (filters.text) {
-        var postheader2 = post.getElementsByClassName("post-header")[0].querySelector('a').innerHTML.toLowerCase();
-        console.log("Post header Test:", postheader2);
-/*
-            var postname = document.getElementsByClassName('post-header');
-
-        for(var i = 0 ; i < post.length ; i++)
-        {
-            
-            var postheader = post[i].getElementsByClassName("post-header")[0].innerHTML;
-            console.log("Post header Test:", postheader);
-            var postheader2 = post[i].getElementsByClassName("post-header")[0].querySelector('a').innerHTML.toLowerCase();
-            console.log("Post header Test:", postheader2);
-            
-        }
-  */    
-        var filterText = filters.text.toLowerCase();
-        console.log("FILTER TITLE:" + filterText);
-        if (postheader2.indexOf(filterText) === -1) {
-            return false;
-        }
-    }
-    return true;
-}
-
-
-/*it will be in addeventlistenr */
-/*
-var projectElems = document.getElementsByClassName('project-card');
-  for (var i = 0; i < projectElems.length; i++) {
-    var postElems = projectElems.getElementsByClassName('posts-dialog');
-    for(var j = 0; j < postElems.length ; j++)
-    {
-
-    }
-    allPosts.push(parsePostElem(postElems[i]));
-  }
-*/
-
-
-
-/*------------------------------------------------------------------- */
 /* Show modal */
 function showModal() {
-
     var modal = document.getElementById('new-post-modal');
     var modalBackdrop = document.getElementById('modal-backdrop');
 
@@ -143,14 +34,37 @@ function showModal() {
     modalBackdrop.classList.remove('hidden');
 
 }
+/* close modal */
+function hideModal() {
+    var modal = document.getElementById('new-post-modal');
+    var modalBackdrop = document.getElementById('modal-backdrop');
+    var projectModal = document.getElementById('new-project-modal');
+
+    modal.classList.add('hidden');
+    modalBackdrop.classList.add('hidden');
+    projectModal.classList.add('hidden');
+
+    clearModalInputs();
+}
+
+function showProjectModal() {
+    var modal = document.getElementById('new-project-modal');
+    var oldModal = document.getElementById('new-post-modal');
+    var modalBackdrop = document.getElementById('modal-backdrop');
+
+    modal.classList.remove('hidden');
+    oldModal.classList.add('hidden');
+    modalBackdrop.classList.remove('hidden');
+
+}
+
+
 function showPost(i) {
     var count = i;
     var count2 = i+10;
 
-
     var postplusbutton = document.getElementById(count);
     var postminusbutton = document.getElementById(count2);
-
 
     var modal = document.getElementsByClassName('posts');
     for(var j = 0 ; j < modal.length; j++)
@@ -174,80 +88,95 @@ function showPost(i) {
 
     postminusbutton.classList.remove('hidden');
 
-
 }
 
-function newProject(description, photoURL, price, city, condition) {
+function newProject(title) {
+    console.log("NEW PROJECT")
+    var projects = document.querySelector(".main-page");
+    var button = projects.children.length - 1
     var context = {
-        "price": price,
-        "city": city,
-        "condition": condition,
-        "description": description,
-        "photoURL": photoURL
+        "title": title,
+        "posts": [],
+        "button": button,
+        "button10": button + 10
     }
-    var post = Handlebars.templates.itemPost(context);
+    var post = Handlebars.templates.projectCard(context);
+    projects.insertAdjacentHTML("beforeend", post);
 
-    /*
-     * Add the new post element into the DOM at the end of the posts <section>.
-     */
-    var postsSection = document.getElementById('posts');
-    postsSection.insertAdjacentHTML("beforeend", post);
+    var open = document.getElementById(button);
+    open.addEventListener('click', function()
+    {
+        var id = parseInt(this.id);
+        console.log("123== New words were entered: " + id);
+        showPost(id);
+    });
+
+    var close = document.getElementById(button + 10);
+    close.addEventListener('click', function()
+    {
+        var id = parseInt(this.id);
+        console.log("== New words were entered: " + id);
+        hidePost(id)
+    });
+
+    var html = "<option>" + title + "</option>"
+    var menu = document.getElementById("create-project");
+    menu.insertAdjacentHTML("beforeend", html)
+    hideModal()
 
 }
-function newPost(project, codeName, code) {
+function newPost(project, codeName, code, codeLink) {
+    console.log("NEW POST")
     var context = {
-        "price": price,
-        "city": city,
-        "condition": condition,
-        "description": description,
-        "photoURL": photoURL
+        "title": codeName,
+        "link": codeLink,
+        "imgURL": code
     }
-    var post = Handlebars.templates.itemPost(context);
+    var post = Handlebars.templates.post(context);
 
-    /*
-     * Add the new post element into the DOM at the end of the posts <section>.
-     */
-    var postsSection = document.getElementById('posts');
-    postsSection.insertAdjacentHTML("beforeend", post);
-
+    var projects = document.querySelectorAll(".project-card");
+    for (var i = 0; i < projects.length; i++) {
+        if (projects[i].title == project) {
+            projects[i].children[2].children[0].insertAdjacentHTML("beforeend", post);
+            break
+        }
+    }
+    hideModal()
 }
 
 /* Handling adding a post */
 
-/*
 function handleModalAcceptClick() {
     var project = document.getElementById('create-project').value.trim();
     var codeName = document.getElementById('create-codename').value.trim();
     var code = document.getElementById('create-code').value.trim();
+    var codeLink = document.getElementById('create-code-link').value.trim();
 
-    if (!project || !codeName || !code) {
+    if (!project || !codeName || !code || !codeLink) {
         alert("You must fill in all of the fields!");
     } else {
 
-      if (project === "Type new project name") {
-          newPost(project, codeName, code)
-      } else {
-          */
-          /*Create new project (Actually get name)*/
-/*
-          newPost(project, codeName, code)
-      }
-      allPosts.push({
-          description: description,
-          photoURL: photoURL,
-          price: price,
-          city: city,
-          condition: condition
-      });
-
-      hideModal()
+        newPost(project, codeName, code, codeLink);
+        hideModal();
+    }
 }
-*/
+
+function handleProjectAcceptClick() {
+    var project = document.getElementById('project-name').value.trim();
+
+    if (!project) {
+        alert("You must fill in all of the fields!");
+    } else {
+
+        newProject(project);
+        hideModal();
+    }
+}
+
 
 function hidePost(i) {
     var count = i-10;
     var count2 = i;
-
 
     var postplusbutton = document.getElementById(count);
     var postminusbutton = document.getElementById(count2);
@@ -263,7 +192,7 @@ function hidePost(i) {
     }
 
     var modalBackdrop = document.getElementsByClassName('posts-backdrop');
-    for(var j = 0 ; j < modalBackdrop.length ; j++)
+    for(var j = 0 ; j < modalBackdrop.length; j++)
     {
         if(j == i-10)
         {
@@ -272,59 +201,21 @@ function hidePost(i) {
     }
 
     postplusbutton.classList.remove('hidden');
-
     postminusbutton.classList.add('hidden');
 
 
 }
 
-/*Not done!! Clear modal */
+/* Clear modal */
 function clearModalInputs() {
-
-    var modalInputElements = document.querySelectorAll('#new-post-modal input')
-    for (var i = 0; i < modalInputElements.length; i++) {
-      modalInputElements[i].value = '';
-    }
-    modalInputElements[0] = "Type new project name"
-
-}
-
-
-/* close modal */
-function hideModal() {
-
-    var modal = document.getElementById('new-post-modal');
-    var modalBackdrop = document.getElementById('modal-backdrop');
-
-    modal.classList.add('hidden');
-    modalBackdrop.classList.add('hidden');
-
- /*   clearModalInputs();*/
+    document.getElementById("create-project").value = "";
+    document.getElementById("create-codename").value = "";
+    document.getElementById("create-code").value = "";
+    document.getElementById('create-code-link').value = "";
+    document.getElementById('project-name').value = "";
 }
 
 window.addEventListener('DOMContentLoaded', function () {
-/*
-    var projectElems = document.getElementsByClassName('project-card');
-    for (var i = 0; i < projectElems.length; i++) {
-      var postElems = projectElems.getElementsByClassName('posts-dialog');
-      for(var j = 0; j < postElems.length ; j++)
-      {
-        allPosts.push(parsePostElem(postElems[j]));
-      }
-    }
-
-    var postElems = document.getElementsByClassName('project-card');
-    for (var i = 0; i < postElems.length; i++) {
-        var 
-        for(var j=0 ; j < )
-        allPosts.push(parsePostElem(postElems[i]));
-    }
-
-*/
-
-
-
-
     var addPostButton = document.getElementById('add-new-post');
     addPostButton.addEventListener('click', showModal);
 
@@ -350,20 +241,25 @@ window.addEventListener('DOMContentLoaded', function () {
             hidePost(id)
         });
     }
-/*
+
+    var modalProjectButton = document.getElementById('modal-project');
+    modalProjectButton.addEventListener('click', showProjectModal);
+
     var modalAcceptButton = document.getElementById('modal-accept');
     modalAcceptButton.addEventListener('click', handleModalAcceptClick);
-*/
+
+    var projectAcceptButton = document.getElementById('project-accept');
+    projectAcceptButton.addEventListener('click', handleProjectAcceptClick);
+
     var modalHideButtons = document.getElementsByClassName('modal-hide-button');
     for (var i = 0; i < modalHideButtons.length; i++) {
       modalHideButtons[i].addEventListener('click', hideModal);
     }
+    var modalHideButtons = document.getElementsByClassName('modal-close-button');
+    for (var i = 0; i < modalHideButtons.length; i++) {
+      modalHideButtons[i].addEventListener('click', hideModal);
+    }
 
-    
-    var searchButton = document.getElementById('search-button');
-    
-    searchButton.addEventListener('click', doFilterUpdate);
-    
 });
 
 /* Create Action */
