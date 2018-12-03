@@ -138,6 +138,7 @@ function newProject(title) {
     hideModal()
 
 }
+/*
 function newPost(project, codeName, code, codeLink) {
     console.log("NEW POST")
     var context = {
@@ -156,6 +157,57 @@ function newPost(project, codeName, code, codeLink) {
     }
     hideModal()
 }
+*/
+
+/*NOT WORKKKKKKK*/
+/*---------------------------------------- */
+function newPost(project, codeName, code, codeLink) {
+    console.log("NEW POST")
+
+    var postRequest = new XMLHttpRequest();
+    var requestURL = '/addPost';
+    postRequest.open('POST', requestURL);
+
+    var requestBody = JSON.stringify({
+     //   project: project,
+        title: codeName,
+        link: codeLink,
+        imgURL: code
+    });
+
+
+    postRequest.addEventListener('load', function (event) {
+        if (event.target.status === 200) {
+            var post = Handlebars.templates.post(context);
+            var newPostCardHTML = post({
+               // project: project,
+                title: codeName,
+                link: codeLink,
+                imgURL: code
+            });
+        
+
+            var projects = document.querySelectorAll(".project-card");
+            for (var i = 0; i < projects.length; i++) {
+                if (projects[i].title == project) {
+                    projects[i].children[2].children[0].insertAdjacentHTML("beforeend", newPostCardHTML);
+                    break
+                }
+            }
+        } else {
+          alert("Error storing photo: " + event.target.response);
+        }
+    });
+
+    postRequest.setRequestHeader('Content-Type', 'application/json');
+    postRequest.send(requestBody);
+
+    hideModal()
+}
+
+
+/*---------------------------------------- */
+
 
 /* Handling adding a post */
 
