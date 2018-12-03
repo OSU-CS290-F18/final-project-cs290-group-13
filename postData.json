@@ -2,51 +2,51 @@
   "a1_readme":{
     "title": "CS_290 Assignment_1",
     "name": "README.md",
-    "url": "postImage/A1/README.jpg"
+    "url": "http://web.engr.oregonstate.edu/~leey3/postImage/A1/README.jpg"
   },
   "a1_index":{
     "title": "CS_290 Assignment_1",
     "name": "index.html",
-    "url": "postImage/A1/index.jpg"
+    "url": "http://web.engr.oregonstate.edu/~leey3/postImage/A1/index.jpg"
   },
   "a1_blog":{
     "title": "CS_290 Assignment_1",
     "name": "blog.html",
-    "url": "postImage/A1/blog.jpg"
+    "url": "http://web.engr.oregonstate.edu/~leey3/postImage/A1/blog.jpg"
   },
   "a2_readme":{
     "title": "CS_290 Assignment_2",
     "name": "README.md",
-    "url": "postImage/A2/README.jpg"
+    "url": "http://web.engr.oregonstate.edu/~leey3/postImage/A2/README.jpg"
   },
   "a2_index":{
     "title": "CS_290 Assignment_2",
     "name": "index.html",
-    "url": "postImage/A2/index.jpg"
+    "url": "http://web.engr.oregonstate.edu/~leey3/postImage/A2/index.jpg"
   },
   "a2_style":{
     "title": "CS_290 Assignment_2",
     "name": "style.css",
-    "url": "postImage/A2/style.jpg"
+    "url": "http://web.engr.oregonstate.edu/~leey3/postImage/A2/style.jpg"
   },
   "a3_readme":{
     "title": "CS_290 Assignment_3",
     "name": "README.md",
-    "url": "postImage/A3/README.jpg"
+    "url": "http://web.engr.oregonstate.edu/~leey3/postImage/A3/README.jpg"
   },
   "a3_index":{
     "title": "CS_290 Assignment_3",
     "name": "index.html",
-    "url": "postImage/A3/index.jpg"
+    "url": "http://web.engr.oregonstate.edu/~leey3/postImage/A3/index.jpg"
   },
   "a3_style":{
     "title": "CS_290 Assignment_3",
     "name": "style.css",
-    "url": "postImage/A3/style.jpg"
+    "url": "http://web.engr.oregonstate.edu/~leey3/postImage/A3/style.jpg"
   },
   "a3_index_js":{
     "title": "CS_290 Assignment_3",
     "name": "index.js",
-    "url": "postImage/A3/index_js.jpg"
+    "url": "http://web.engr.oregonstate.edu/~leey3/postImage/A3/index_js.jpg"
   }
 }

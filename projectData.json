@@ -7,17 +7,17 @@
 			{
 				"title": "README.md",
 				"link": "/a1_readme",
-				"imgURL": "./codes/README.md"
+				"imgURL": "http://web.engr.oregonstate.edu/~leey3/postImage/A1/README.jpg"
 			},
 			{
 				"title": "index.html",
 				"link": "/a1_index",
-				"imgURL": "./codes/index.html"
+				"imgURL": "http://web.engr.oregonstate.edu/~leey3/postImage/A1/index.jpg"
 			},
 			{
 				"title": "blog.html",
 				"link": "/a1_blog",
-				"imgURL": "./codes/blog.html"
+				"imgURL": "http://web.engr.oregonstate.edu/~leey3/postImage/A1/blog.jpg"
 			}
 		],
 		"button": 0,
@@ -30,17 +30,17 @@
 			{
 				"title": "README.md",
 				"link": "/a2_readme",
-				"imgURL": "./codes/README.md"
+				"imgURL": "http://web.engr.oregonstate.edu/~leey3/postImage/A2/README.jpg"
 			},
 			{
 				"title": "index.html",
 				"link": "/a2_index",
-				"imgURL": "./codes/index.html"
+				"imgURL": "http://web.engr.oregonstate.edu/~leey3/postImage/A2/index.jpg"
 			},
 			{
 				"title": "style.css",
 				"link": "/a2_style",
-				"imgURL": "./codes/style.css"
+				"imgURL": "http://web.engr.oregonstate.edu/~leey3/postImage/A2/style.jpg"
 			}
 		],
 		"button": 1,
@@ -53,22 +53,22 @@
 			{
 				"title": "README.md",
 				"link": "/a3_readme",
-				"imgURL": "./codes/README.md"
+				"imgURL": "http://web.engr.oregonstate.edu/~leey3/postImage/A3/README.jpg"
 			},
 			{
 				"title": "index.html",
 				"link": "/a3_index",
-				"imgURL": "./codes/index.html"
+				"imgURL": "http://web.engr.oregonstate.edu/~leey3/postImage/A3/index.jpg"
 			},
 			{
 				"title": "style.css",
 				"link": "/a3_style",
-				"imgURL": "./codes/style.css"
+				"imgURL": "http://web.engr.oregonstate.edu/~leey3/postImage/A3/style.jpg"
 			},
       {
 				"title": "index.js",
 				"link": "/a3_index_js",
-				"imgURL": "./codes/index.js"
+				"imgURL": "http://web.engr.oregonstate.edu/~leey3/postImage/A3/index_js.jpg"
 			}
 		],
 		"button": 2,
