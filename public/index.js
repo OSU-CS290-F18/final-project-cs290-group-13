@@ -1,30 +1,43 @@
-/* Not done!! Search bar action -> search the post name in projects, and remover others*/
+/* Search Bar */
+function doFilterUpdate() {
+    
+    var filters = {
+      text: document.getElementById('search-text-input').value.trim(),
+    }
 
-/*
-function text_search(text, searched)
-{
-	var check = null;
-	if(text.trim() != "")
-	{
-		text = text.toLowerCase().split(" ");
-		for(var i = 0 ; i < searched.length; i++)
-		{
-			check = searched[i].textContent.toLowerCase().split(" ");
-			for(var j = 0 ; j < check.length; j++)
-			{
-				if(text.includes(check[j]))
-				{
-					break;
-				}
-				else if(!text.includes(check[j]) && j+1 == check.length)
-				{
-					document.getElementById("posts").removeChild(searched[i]);
-				}
-			}
-		}
-	}
+
+    var projectElems = document.getElementsByClassName('project-card');
+    for (var i = 0; i < projectElems.length; i++) {
+      var postElems = projectElems[i].getElementsByClassName('post');
+      for(var j = 0 ; j <postElems.length ; j++)
+      {
+        if(postPassesFilters(postElems[j], filters))
+        {
+            console.log("Success");
+            postElems[j].style.display = "";
+        }
+        else {
+            postElems[j].style.display = "none";
+            console.log("Failure");
+        }
+      }
+      
+    }
+
 }
-*/
+function postPassesFilters(post, filters) {
+    if (filters.text) {
+        var postheader2 = post.getElementsByClassName("post-header")[0].querySelector('a').innerHTML.toLowerCase();
+        console.log("Post header Test:", postheader2);
+        var filterText = filters.text.toLowerCase();
+        console.log("FILTER TITLE:" + filterText);
+        if (postheader2.indexOf(filterText) === -1) {
+            return false;
+        }
+    }
+    return true;
+}
+
 /* Show modal */
 function showModal() {
     var modal = document.getElementById('new-post-modal');
@@ -259,6 +272,10 @@ window.addEventListener('DOMContentLoaded', function () {
     for (var i = 0; i < modalHideButtons.length; i++) {
       modalHideButtons[i].addEventListener('click', hideModal);
     }
+
+    var searchButton = document.getElementById('search-button');
+    
+    searchButton.addEventListener('click', doFilterUpdate);
 
 });
 
