@@ -92,16 +92,16 @@ app.get('/:post', function(req, res, next){
 */
 /*---------------------------------------- */
 app.get('/:post', function(req, res, next) {
+  console.log(req.params.post)
   var post = req.params.post.toLowerCase();
   var postCollection = mongoDB.collection('post');
   postCollection.find({codeId: post}).toArray(function (err, postDocs) {
     if(err) {
-      res.status(500).send("Error Connecting to Db.");
-    } else if (postDocs.length > 0)
-    {
-      res.status(200).render('postPage', postDocs[0]);
+        res.status(500).send("Error Connecting to Db.");
+    } else if (postDocs.length > 0) {
+        res.status(200).render('postPage', postDocs[0]);
     } else {
-      next();
+        next();
     }
   });
 });
@@ -112,7 +112,7 @@ app.get('/:post', function(req, res, next) {
 /*---------------------------------------- */
 app.post('/addPost', function (req, res, next) {
   console.log("Test: req.body.project: ", req.body.project, " req.body.codeName: ", req.body.title, " req.body.codeLink: ", req.body.link, " req.body.code: ", req.body.imgURL );
-  
+
   if (req.body && req.body.project && req.body.title && req.body.imgURL && req.body.link) {
       console.log("APP.POST IF OF ADD POST");
       var projectCollection = mongoDB.collection('projects');
@@ -125,10 +125,10 @@ app.post('/addPost', function (req, res, next) {
           { $push: { posts: { title: req.body.title, link: req.body.link, imgURL: req.body.imgURL } } },
           function (err, result) {
               if (err) {
-                  res.status(500).send("Error saving photo to DB");
+                  res.status(500);
                   console.log("Error")
               } else if (result.matchedCount > 0) {
-                  res.status(200).send("Success");
+                  res.status(200);
                   console.log("Gud")
               } else {
                   next();
@@ -137,22 +137,29 @@ app.post('/addPost', function (req, res, next) {
       );
       projectCollection.find().sort({ button: 1, button10: 1 });
       console.log("FINISH UPDATEONE");
-      
+
       postCollection.insertOne(
-          { codeId: req.body.link, title: req.body.project, name: req.body.title, url: req.body.imgURL },
+          { codeId: req.body.link.toLowerCase(), title: req.body.project, name: req.body.title, url: req.body.imgURL },
           function (err, result) {
               if (err) {
-                  res.status(500).send("Error saving photo to DB");
+                  res.status(500);
                   console.log("Error")
               } else if (result.matchedCount > 0) {
-                  res.status(200).send("Success");
+                  if(res.status === 200) {
+                     res.status(200);
+                  }
               } else {
                   next();
               }
           }
       );
       console.log("FINISH INSERTONE");
-      
+      if(res.status === 200) {
+          res.status(200).send("Success");
+      } else {
+          res.status(200).send("Unspecified Error");
+      }
+
   } else {
       res.status(400).send("Request needs a body with a URL and caption");
   }
@@ -181,32 +188,7 @@ app.post('/addProject', function (req, res, next) {
     } else {
         res.status(400).send("Request needs a valid project object");
     }
-    /*
-  var projects = document.querySelector(".main-page");
-  //Button..? work..? or not..?
-  var button = projects.children.length - 1;
-  var button10 = button +10;
-  console.log("APP.POST IF OF ADDPROJECT", button, button10);
-  if (req.body && req.body.project && req.body.button ) {
-    var projectCollection = mongoDB.collection('projects');
-    projectCollection.insertOne(
-      { title: project,
-      posts: [], button: button, button10: button},
-      function (err, result) {
-        if (err) {
-          res.status(500).send("Error saving photo to DB");
-        } else if (result.matchedCount > 0) {
-          res.status(200).send("Success");
-        } else {
-          next();
-        }
-      }
-    );
-    console.log("FINISH INSERTONE OF PROJECT");
-  } else {
-    res.status(400).send("Request needs a body with a URL and caption");
-  }
-  */
+
 });
 /*---------------------------------------- */
 

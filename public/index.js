@@ -154,10 +154,10 @@ function newProject(title) {
             var html = "<option>" + title + "</option>"
             var menu = document.getElementById("create-project");
             menu.insertAdjacentHTML("beforeend", html);
-            
+
         } else {
-            res.status(400).send("Error making new project: " + event.target.response);
-//          alert("Error making new project: " + event.target.response);
+            //res.status(400).send("Error making new project: " + event.target.response);
+            alert("Error making new project: " + event.target.response);
         }
     });
 
