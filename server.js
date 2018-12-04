@@ -60,6 +60,7 @@ app.get('/', function (req, res, next) {
 /*---------------------------------------- */
 app.get('/', function (req, res, next) {
   var projectCollection = mongoDB.collection('projects');
+  projectCollection.find().sort({ button: 1, button10: 1 });
   projectCollection.find({}).toArray(function (err, projectDocs) {
     if(err) {
       res.status(500).send("Error Connecting to Db.");
@@ -110,13 +111,18 @@ app.get('/:post', function(req, res, next) {
 
 /*---------------------------------------- */
 app.post('/addPost', function (req, res, next) {
+  console.log("Test: req.body.project: ", req.body.project, " req.body.codeName: ", req.body.title, " req.body.codeLink: ", req.body.link, " req.body.code: ", req.body.imgURL );
+  
   if (req.body && req.body.project && req.body.title && req.body.imgURL && req.body.link) {
       console.log("APP.POST IF OF ADD POST");
       var projectCollection = mongoDB.collection('projects');
       var postCollection = mongoDB.collection('post');
+
+
+      console.log("Test: req.body.project: ", req.body.project, " req.body.codeName: ", req.body.title, " req.body.codeLink: ", req.body.link, " req.body.code: ", req.body.imgURL );
       projectCollection.updateOne(
           { title: req.body.project },
-          { $push: { posts: { title: req.body.codeName, link: req.body.codeLink, imgURL: req.body.code } } },
+          { $push: { posts: { title: req.body.title, link: req.body.link, imgURL: req.body.imgURL } } },
           function (err, result) {
               if (err) {
                   res.status(500).send("Error saving photo to DB");
@@ -129,10 +135,11 @@ app.post('/addPost', function (req, res, next) {
               }
           }
       );
+      projectCollection.find().sort({ button: 1, button10: 1 });
       console.log("FINISH UPDATEONE");
       /*
       postCollection.insertOne(
-          { codeId: req.body.link, title: req.body.project, name: req.body.codeName, url: req.body.code },
+          { codeId: req.body.link, title: req.body.project, name: req.body.title, url: req.body.imgURL },
           function (err, result) {
               if (err) {
                   res.status(500).send("Error saving photo to DB");
@@ -169,6 +176,7 @@ app.post('/addProject', function (req, res, next) {
                 }
             }
         );
+        projectCollection.find().sort({ button: 1, button10: 1 });
         console.log("FINISH ADD PROJECT");
     } else {
         res.status(400).send("Request needs a valid project object");

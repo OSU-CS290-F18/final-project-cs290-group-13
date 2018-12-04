@@ -156,7 +156,8 @@ function newProject(title) {
             menu.insertAdjacentHTML("beforeend", html);
             
         } else {
-          alert("Error making new project: " + event.target.response);
+            res.status(400).send("Error making new project: " + event.target.response);
+//          alert("Error making new project: " + event.target.response);
         }
     });
 
@@ -202,6 +203,7 @@ function newProject(title) {
 /*---------------------------------------- */
 function newPost(project, codeName, code, codeLink) {
     console.log("NEW POST")
+    console.log("Test: project: ", project, " codeName: ", codeName, " codeLink: ", codeLink, " code: ", code );
 
     var postRequest = new XMLHttpRequest();
     var requestURL = '/addPost';
@@ -275,7 +277,7 @@ function handleModalAcceptClick() {
     if (!project || !codeName || !code || !codeLink) {
         alert("You must fill in all of the fields!");
     } else {
-
+        console.log("Test: project: ", project, " codeName: ", codeName, " codeLink: ", codeLink, " code: ", code );
         newPost(project, codeName, code, codeLink);
         hideModal();
     }
