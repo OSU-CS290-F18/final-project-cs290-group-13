@@ -45,7 +45,7 @@ app.use(bodyParser.json());
 
 
 app.get('/profile', function (req, res, next) {
-  res.status(200).render('profilePage');
+    res.status(200).render('profilePage');
 });
 
 
@@ -110,47 +110,70 @@ app.get('/:post', function(req, res, next) {
 
 /*---------------------------------------- */
 app.post('/addPost', function (req, res, next) {
-
-  if (req.body && req.body.project && req.body.codeName && req.body.code && req.body.codeLink) {
-    console.log("APP.POST IF OF ADD POST");
-    var projectCollection = mongoDB.collection('projects');
-    var postCollection = mongoDB.collection('post');
-    projectCollection.updateOne(
-      { title: project },
-      { $push: { posts: { codetitle: req.body.codeName, link: req.body.codeLink, imgURL: req.body.code } } },
-      function (err, result) {
-        if (err) {
-          res.status(500).send("Error saving photo to DB");
-        } else if (result.matchedCount > 0) {
-          res.status(200).send("Success");
-        } else {
-          next();
-        }
-      }
-    );
-    console.log("FINISH UPDATEONE");
-    postCollection.insertOne(
-      { codeId: req.body.link, title: req.body.project, name: req.body.codeName, url: req.body.code },
-      function (err, result) {
-        if (err) {
-          res.status(500).send("Error saving photo to DB");
-        } else if (result.matchedCount > 0) {
-          res.status(200).send("Success");
-        } else {
-          next();
-        }
-      }
-    );
-    console.log("FINISH INSERTONE");
+  if (req.body && req.body.project && req.body.title && req.body.imgURL && req.body.link) {
+      console.log("APP.POST IF OF ADD POST");
+      var projectCollection = mongoDB.collection('projects');
+      var postCollection = mongoDB.collection('post');
+      projectCollection.updateOne(
+          { title: req.body.project },
+          { $push: { posts: { title: req.body.codeName, link: req.body.codeLink, imgURL: req.body.code } } },
+          function (err, result) {
+              if (err) {
+                  res.status(500).send("Error saving photo to DB");
+                  console.log("Error")
+              } else if (result.matchedCount > 0) {
+                  res.status(200).send("Success");
+                  console.log("Gud")
+              } else {
+                  next();
+              }
+          }
+      );
+      console.log("FINISH UPDATEONE");
+      /*
+      postCollection.insertOne(
+          { codeId: req.body.link, title: req.body.project, name: req.body.codeName, url: req.body.code },
+          function (err, result) {
+              if (err) {
+                  res.status(500).send("Error saving photo to DB");
+                  console.log("Error")
+              } else if (result.matchedCount > 0) {
+                  res.status(200).send("Success");
+              } else {
+                  next();
+              }
+          }
+      );
+      console.log("FINISH INSERTONE");
+      */
   } else {
-    res.status(400).send("Request needs a body with a URL and caption");
+      res.status(400).send("Request needs a body with a URL and caption");
   }
 });
 
 
 app.post('/addProject', function (req, res, next) {
-
-
+    if (req.body && req.body.title && req.body.posts && req.body.button && req.body.button10) {
+        var projectCollection = mongoDB.collection('projects');
+        projectCollection.insertOne(
+            { title: req.body.title,  posts: req.body.posts, button: req.body.button, button10: req.body.button10},
+            function (err, result) {
+                if (err) {
+                    res.status(500).send("Error creating project");
+                    console.log("Error PROJECT")
+                } else if (result.matchedCount > 0) {
+                    res.status(200).send("Success");
+                    console.log("Gud PROJECT")
+                } else {
+                    next();
+                }
+            }
+        );
+        console.log("FINISH ADD PROJECT");
+    } else {
+        res.status(400).send("Request needs a valid project object");
+    }
+    /*
   var projects = document.querySelector(".main-page");
   //Button..? work..? or not..?
   var button = projects.children.length - 1;
@@ -175,6 +198,7 @@ app.post('/addProject', function (req, res, next) {
   } else {
     res.status(400).send("Request needs a body with a URL and caption");
   }
+  */
 });
 /*---------------------------------------- */
 

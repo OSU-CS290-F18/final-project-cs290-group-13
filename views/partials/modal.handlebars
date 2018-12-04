@@ -42,16 +42,11 @@
                     
 					
 					<option selected value="">Type new project name</option>
-                    
-					
-					<option>CS_290 Assignment_1</option>
-                    
-					
-					<option>CS_290 Assignment_2</option>
-                    
-					
-					<option>CS_290 Assignment_3</option>
-                
+  
+					{{#each projects}}       
+						{{> option}}           
+					  
+					{{/each}}              
 				
 				</select>
             

@@ -1,6 +1,6 @@
 /* Search Bar */
 function doFilterUpdate() {
-    
+
     var filters = {
       text: document.getElementById('search-text-input').value.trim(),
     }
@@ -21,7 +21,7 @@ function doFilterUpdate() {
             console.log("Failure");
         }
       }
-      
+
     }
 
 }
@@ -105,6 +105,65 @@ function showPost(i) {
 
 function newProject(title) {
     console.log("NEW PROJECT")
+
+    var postRequest = new XMLHttpRequest();
+    var requestURL = '/addProject';
+    postRequest.open('POST', requestURL);
+
+    var projects = document.querySelector(".main-page");
+    var button = projects.children.length - 1;
+    var requestBody = JSON.stringify({
+        title: title,
+        posts: [],
+        button: button,
+        button10: button + 10
+    });
+
+    postRequest.setRequestHeader('Content-Type', 'application/json');
+    postRequest.send(requestBody);
+
+    postRequest.addEventListener('load', function (event) {
+        if (event.target.status === 200) {
+            var projects = document.querySelector(".main-page");
+            var button = projects.children.length - 1
+            var context = {
+                "title": title,
+                "posts": [],
+                "button": button,
+                "button10": button + 10
+            }
+            var post = Handlebars.templates.projectCard(context);
+            projects.insertAdjacentHTML("beforeend", post);
+
+            var open = document.getElementById(button);
+            open.addEventListener('click', function()
+            {
+                var id = parseInt(this.id);
+                console.log("123== New words were entered: " + id);
+                showPost(id);
+            });
+
+            var close = document.getElementById(button + 10);
+            close.addEventListener('click', function()
+            {
+                var id = parseInt(this.id);
+                console.log("== New words were entered: " + id);
+                hidePost(id)
+            });
+
+            var html = "<option>" + title + "</option>"
+            var menu = document.getElementById("create-project");
+            menu.insertAdjacentHTML("beforeend", html);
+            
+        } else {
+          alert("Error making new project: " + event.target.response);
+        }
+    });
+
+
+    hideModal()
+  /*
+    console.log("NEW PROJECT")
     var projects = document.querySelector(".main-page");
     var button = projects.children.length - 1
     var context = {
@@ -136,30 +195,10 @@ function newProject(title) {
     var menu = document.getElementById("create-project");
     menu.insertAdjacentHTML("beforeend", html)
     hideModal()
-
+    */
 }
-/*
-function newPost(project, codeName, code, codeLink) {
-    console.log("NEW POST")
-    var context = {
-        "title": codeName,
-        "link": codeLink,
-        "imgURL": code
-    }
-    var post = Handlebars.templates.post(context);
 
-    var projects = document.querySelectorAll(".project-card");
-    for (var i = 0; i < projects.length; i++) {
-        if (projects[i].title == project) {
-            projects[i].children[2].children[0].insertAdjacentHTML("beforeend", post);
-            break
-        }
-    }
-    hideModal()
-}
-*/
-
-/*NOT WORKKKKKKK*/
+/*WORKKKKKKK NOOOOWW :)*/
 /*---------------------------------------- */
 function newPost(project, codeName, code, codeLink) {
     console.log("NEW POST")
@@ -169,23 +208,40 @@ function newPost(project, codeName, code, codeLink) {
     postRequest.open('POST', requestURL);
 
     var requestBody = JSON.stringify({
-     //   project: project,
+        project: project,
         title: codeName,
         link: codeLink,
         imgURL: code
     });
 
+    postRequest.setRequestHeader('Content-Type', 'application/json');
+    postRequest.send(requestBody);
 
     postRequest.addEventListener('load', function (event) {
         if (event.target.status === 200) {
+            var context = {
+                title: codeName,
+                link: codeLink,
+                imgURL: code
+            }
+            var post = Handlebars.templates.post(context);
+
+            var projects = document.querySelectorAll(".project-card");
+            for (var i = 0; i < projects.length; i++) {
+                if (projects[i].title == project) {
+                    projects[i].children[2].children[0].insertAdjacentHTML("beforeend", post);
+                    break
+                }
+            }
+            /*
             var post = Handlebars.templates.post(context);
             var newPostCardHTML = post({
-               // project: project,
+                project: project,
                 title: codeName,
                 link: codeLink,
                 imgURL: code
             });
-        
+
 
             var projects = document.querySelectorAll(".project-card");
             for (var i = 0; i < projects.length; i++) {
@@ -194,13 +250,12 @@ function newPost(project, codeName, code, codeLink) {
                     break
                 }
             }
+            */
         } else {
           alert("Error storing photo: " + event.target.response);
         }
     });
 
-    postRequest.setRequestHeader('Content-Type', 'application/json');
-    postRequest.send(requestBody);
 
     hideModal()
 }
@@ -326,7 +381,7 @@ window.addEventListener('DOMContentLoaded', function () {
     }
 
     var searchButton = document.getElementById('search-button');
-    
+
     searchButton.addEventListener('click', doFilterUpdate);
 
 });
