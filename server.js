@@ -137,7 +137,7 @@ app.post('/addPost', function (req, res, next) {
       );
       projectCollection.find().sort({ button: 1, button10: 1 });
       console.log("FINISH UPDATEONE");
-      /*
+      
       postCollection.insertOne(
           { codeId: req.body.link, title: req.body.project, name: req.body.title, url: req.body.imgURL },
           function (err, result) {
@@ -152,7 +152,7 @@ app.post('/addPost', function (req, res, next) {
           }
       );
       console.log("FINISH INSERTONE");
-      */
+      
   } else {
       res.status(400).send("Request needs a body with a URL and caption");
   }
