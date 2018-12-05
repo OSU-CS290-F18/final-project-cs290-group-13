@@ -48,29 +48,14 @@ app.get('/profile', function (req, res, next) {
     res.status(200).render('profilePage');
 });
 
-
-/*
-app.get('/', function (req, res, next) {
-  var context = {
-      "projects": projectData
-  }
-  res.status(200).render('homePage', context);
-});
-*/
 /*---------------------------------------- */
 app.get('/', function (req, res, next) {
   var projectCollection = mongoDB.collection('projects');
   projectCollection.find().sort({ button: 1, button10: 1 });
-  projectCollection.find({}).toArray(function (err, projectDocs) {
+  projectCollection.find({}).sort({button:1, button10: 1}).toArray(function (err, projectDocs) {
     if(err) {
       res.status(500).send("Error Connecting to Db.");
     }
-    /*
-    var context = {
-      "proejects": projectDocs
-    }
-    res.status(200).render('homePage', context);
-    */
    res.status(200).render('homePage', {
      projects: projectDocs
    });
@@ -78,18 +63,6 @@ app.get('/', function (req, res, next) {
 });
 /*---------------------------------------- */
 
-
-/*
-app.get('/:post', function(req, res, next){
-  var post = req.params.post.toLowerCase();
-  if(postData[post]){
-    res.render('postPage', postData[post]);
-  }
-  else{
-    next();
-  }
-});
-*/
 /*---------------------------------------- */
 app.get('/:post', function(req, res, next) {
   console.log(req.params.post)
@@ -110,6 +83,32 @@ app.get('/:post', function(req, res, next) {
 
 
 /*---------------------------------------- */
+app.post('/addnewproject', function (req, res, next) {
+    console.log("NEW PROJECT ADD POST")
+    if (req.body && req.body.title && req.body.posts && req.body.button && req.body.button10) {
+        var projectCollection = mongoDB.collection('projects');
+        projectCollection.insertOne(
+            { title: req.body.title,  posts: req.body.posts, button: req.body.button, button10: req.body.button10},
+            function (err, result) {
+                if (err) {
+                    res.status(500).send("Error creating project");
+                    console.log("Error PROJECT")
+                } else if (result.matchedCount > 0) {
+                    res.status(200).send("Success");
+                    console.log("Gud PROJECT")
+                } else {
+                    next();
+                }
+            }
+        );
+        projectCollection.find().sort({ button: 1, button10: 1 });
+        console.log("FINISH ADD PROJECT");
+    } else {
+        res.status(400).send("Request needs a valid project object");
+    }
+
+});
+
 app.post('/addPost', function (req, res, next) {
   console.log("Test: req.body.project: ", req.body.project, " req.body.codeName: ", req.body.title, " req.body.codeLink: ", req.body.link, " req.body.code: ", req.body.imgURL );
 
@@ -135,7 +134,7 @@ app.post('/addPost', function (req, res, next) {
               }
           }
       );
-      projectCollection.find().sort({ button: 1, button10: 1 });
+      
       console.log("FINISH UPDATEONE");
 
       postCollection.insertOne(
@@ -165,53 +164,12 @@ app.post('/addPost', function (req, res, next) {
   }
 });
 
-
-app.post('/addProject', function (req, res, next) {
-    if (req.body && req.body.title && req.body.posts && req.body.button && req.body.button10) {
-        var projectCollection = mongoDB.collection('projects');
-        projectCollection.insertOne(
-            { title: req.body.title,  posts: req.body.posts, button: req.body.button, button10: req.body.button10},
-            function (err, result) {
-                if (err) {
-                    res.status(500).send("Error creating project");
-                    console.log("Error PROJECT")
-                } else if (result.matchedCount > 0) {
-                    res.status(200).send("Success");
-                    console.log("Gud PROJECT")
-                } else {
-                    next();
-                }
-            }
-        );
-        projectCollection.find().sort({ button: 1, button10: 1 });
-        console.log("FINISH ADD PROJECT");
-    } else {
-        res.status(400).send("Request needs a valid project object");
-    }
-
-});
 /*---------------------------------------- */
-
-
-
-
-
-
 
 
 app.get("*", function (req, res, next) {
   res.status(404).render('404');
 });
-
-
-/*
-app.listen(port, function (err) {
-  if (err) {
-    throw err;
-  }
-  console.log("== Server listening on port 3000");
-});
-*/
 /*---------------------------------------- */
 MongoClient.connect(mongoURL, function (err, client) {
   if (err) {

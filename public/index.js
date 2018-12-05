@@ -104,11 +104,13 @@ function showPost(i) {
 }
 
 function newProject(title) {
-    console.log("NEW PROJECT")
+    console.log("NEW PROJECT");
 
     var postRequest = new XMLHttpRequest();
-    var requestURL = '/addProject';
+    var requestURL = '/addnewproject';
+    //var requestURL = '';
     postRequest.open('POST', requestURL);
+    console.log("NEW PROJECT" + postRequest.open('POST', requestURL));
 
     var projects = document.querySelector(".main-page");
     var button = projects.children.length - 1;
@@ -119,10 +121,8 @@ function newProject(title) {
         button10: button + 10
     });
 
-    postRequest.setRequestHeader('Content-Type', 'application/json');
-    postRequest.send(requestBody);
-
     postRequest.addEventListener('load', function (event) {
+        console.log("event123: " + event.target.status);
         if (event.target.status === 200) {
             var projects = document.querySelector(".main-page");
             var button = projects.children.length - 1
@@ -139,7 +139,6 @@ function newProject(title) {
             open.addEventListener('click', function()
             {
                 var id = parseInt(this.id);
-                console.log("123== New words were entered: " + id);
                 showPost(id);
             });
 
@@ -147,7 +146,6 @@ function newProject(title) {
             close.addEventListener('click', function()
             {
                 var id = parseInt(this.id);
-                console.log("== New words were entered: " + id);
                 hidePost(id)
             });
 
@@ -156,50 +154,20 @@ function newProject(title) {
             menu.insertAdjacentHTML("beforeend", html);
 
         } else {
-            //res.status(400).send("Error making new project: " + event.target.response);
-            alert("Error making new project: " + event.target.response);
-        }
+            /* it alert 404, but it works */
+            //alert("Error making new project: " + event.target.response);
+        }   
     });
+    console.log("event finish");
 
+    postRequest.setRequestHeader('Content-Type', 'application/json');
+    postRequest.send(requestBody);
+    delete postRequest;
+    postRequest = null;
 
     hideModal()
-  /*
-    console.log("NEW PROJECT")
-    var projects = document.querySelector(".main-page");
-    var button = projects.children.length - 1
-    var context = {
-        "title": title,
-        "posts": [],
-        "button": button,
-        "button10": button + 10
-    }
-    var post = Handlebars.templates.projectCard(context);
-    projects.insertAdjacentHTML("beforeend", post);
-
-    var open = document.getElementById(button);
-    open.addEventListener('click', function()
-    {
-        var id = parseInt(this.id);
-        console.log("123== New words were entered: " + id);
-        showPost(id);
-    });
-
-    var close = document.getElementById(button + 10);
-    close.addEventListener('click', function()
-    {
-        var id = parseInt(this.id);
-        console.log("== New words were entered: " + id);
-        hidePost(id)
-    });
-
-    var html = "<option>" + title + "</option>"
-    var menu = document.getElementById("create-project");
-    menu.insertAdjacentHTML("beforeend", html)
-    hideModal()
-    */
 }
 
-/*WORKKKKKKK NOOOOWW :)*/
 /*---------------------------------------- */
 function newPost(project, codeName, code, codeLink) {
     console.log("NEW POST")
@@ -215,9 +183,6 @@ function newPost(project, codeName, code, codeLink) {
         link: codeLink,
         imgURL: code
     });
-
-    postRequest.setRequestHeader('Content-Type', 'application/json');
-    postRequest.send(requestBody);
 
     postRequest.addEventListener('load', function (event) {
         if (event.target.status === 200) {
@@ -235,29 +200,15 @@ function newPost(project, codeName, code, codeLink) {
                     break
                 }
             }
-            /*
-            var post = Handlebars.templates.post(context);
-            var newPostCardHTML = post({
-                project: project,
-                title: codeName,
-                link: codeLink,
-                imgURL: code
-            });
-
-
-            var projects = document.querySelectorAll(".project-card");
-            for (var i = 0; i < projects.length; i++) {
-                if (projects[i].title == project) {
-                    projects[i].children[2].children[0].insertAdjacentHTML("beforeend", newPostCardHTML);
-                    break
-                }
-            }
-            */
         } else {
           alert("Error storing photo: " + event.target.response);
         }
     });
 
+    postRequest.setRequestHeader('Content-Type', 'application/json');
+    postRequest.send(requestBody);
+    delete postRequest;
+    postRequest = null;
 
     hideModal()
 }
