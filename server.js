@@ -134,7 +134,7 @@ app.post('/addPost', function (req, res, next) {
               }
           }
       );
-      
+
       console.log("FINISH UPDATEONE");
 
       postCollection.insertOne(

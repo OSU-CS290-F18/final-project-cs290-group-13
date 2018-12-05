@@ -122,41 +122,36 @@ function newProject(title) {
     });
 
     postRequest.addEventListener('load', function (event) {
-        console.log("event123: " + event.target.status);
-        if (event.target.status === 200) {
-            var projects = document.querySelector(".main-page");
-            var button = projects.children.length - 1
-            var context = {
-                "title": title,
-                "posts": [],
-                "button": button,
-                "button10": button + 10
-            }
-            var post = Handlebars.templates.projectCard(context);
-            projects.insertAdjacentHTML("beforeend", post);
 
-            var open = document.getElementById(button);
-            open.addEventListener('click', function()
-            {
-                var id = parseInt(this.id);
-                showPost(id);
-            });
+        var projects = document.querySelector(".main-page");
+        var button = projects.children.length - 1
+        var context = {
+            "title": title,
+            "posts": [],
+            "button": button,
+            "button10": button + 10
+        }
+        var post = Handlebars.templates.projectCard(context);
+        projects.insertAdjacentHTML("beforeend", post);
 
-            var close = document.getElementById(button + 10);
-            close.addEventListener('click', function()
-            {
-                var id = parseInt(this.id);
-                hidePost(id)
-            });
+        var open = document.getElementById(button);
+        open.addEventListener('click', function()
+        {
+            var id = parseInt(this.id);
+            showPost(id);
+        });
 
-            var html = "<option>" + title + "</option>"
-            var menu = document.getElementById("create-project");
-            menu.insertAdjacentHTML("beforeend", html);
+        var close = document.getElementById(button + 10);
+        close.addEventListener('click', function()
+        {
+            var id = parseInt(this.id);
+            hidePost(id)
+        });
 
-        } else {
-            /* it alert 404, but it works */
-            //alert("Error making new project: " + event.target.response);
-        }   
+        var html = "<option>" + title + "</option>"
+        var menu = document.getElementById("create-project");
+        menu.insertAdjacentHTML("beforeend", html);
+
     });
     console.log("event finish");
 
